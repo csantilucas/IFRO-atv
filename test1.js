@@ -1,3 +1,2 @@
-let a = 2
-a = 2**10
+let a =3
 console.log(a)
