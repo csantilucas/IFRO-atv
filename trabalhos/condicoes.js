@@ -19,7 +19,7 @@ function verifica2() {
 
         console.log('\ndata invalida, os valores nao podem ser negativos');
     }
-    else if (dia > 31) {
+    else if (dia >= 32) {
         console.log('\ndata invalida, o dia nao pode ser maior que 31');
     }
     else if (mes > 12) {
@@ -47,7 +47,7 @@ verifica2()
 
 //verifa se o dia do ano bissextoi e valido
 
-if (mes = 2) {
+if (mes == 2) {
     if (verifica(ano)) {
         if (dia >= 30) {
             console.log('data invalida\n')
