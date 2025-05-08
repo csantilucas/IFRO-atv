@@ -30,11 +30,7 @@ function verifica2() {
     }
 }
 
-
-
-
 verifica2()
-
 
 {
     // Verificando se o ano é bissexto
