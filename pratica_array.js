@@ -11,6 +11,7 @@ number.push(gerados);
  
        
 }
+
 console.log(number);   
 
 let menor = Math.min(...number); // menor numero do array
