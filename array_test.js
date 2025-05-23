@@ -11,7 +11,7 @@ number.push(gerados);
     cont++;
     let i = 0
  
-    for (i of number  ){
+    for (i in number  ){
         
     }
     
