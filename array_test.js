@@ -11,11 +11,11 @@ number.push(gerados);
     cont++;
     let i = 0
  
-    for (i in number  ){
+    for (i of number  ){
         
     }
     
-    console.log(number[i])
+    console.log(i)
 }
 // console.log(number);   
 
