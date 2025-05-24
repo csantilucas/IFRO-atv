@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <charset="UTF-8">
+    <name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input para Div</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <input type="text" id="meuInput" placeholder="Digite algo aqui">
+    <button id="botao">Enviar</button>
+    <button id="botao2">criar</button>
+    
+
+
+    <script>
+        botao2.addEventListener('click', () => {
+
+            //cria uma div nova
+            const novaDiv = document.createElement('div', 'h1');
+            novaDiv.textContent = ' ';
+            novaDiv.id = 'minhaDiv';
+            novaDiv.style.backgroundColor = 'lightblue';
+            document.body.appendChild(novaDiv);
+
+
+            
+            const input = document.getElementById('meuInput');
+            const botao = document.getElementById('botao');
+            const div = document.getElementById('minhaDiv');
+
+            // Pega o valor do input e coloca na div
+            // Adiciona um evento ao botão
+            botao.addEventListener('click', () => {
+                // Pega o valor do input e coloca na div
+                div.textContent = input.value;
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
