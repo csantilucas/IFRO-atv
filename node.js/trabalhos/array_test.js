@@ -15,7 +15,7 @@ number.push(gerados);
         
     }
     
-    console.log(number[i])
+    console.log(i)
 }
 // console.log(number);   
 
