@@ -24,27 +24,23 @@ for (let i = 0; i < users.length; i++) {
 
     let user = []
 
-    if (users[i][0] == arg[0] && users[i][1] == arg[1]) {
+    if (users[i][0] == arg[0] && users[i][1] == arg[1]) {// verifica se o gmail e senha e igual
+        // se for senha e usuario igaul a true
         senha = true
         usuario = true
         user[0] = users[i][0]
+        //mostra o usuario encontrado
         console.log('\nusuario enconstrado, bem vindo', users[i][2], '\n')
 
-    }   else if (users[i][0] == arg[0] && users[i][1] != arg[1]) {
+    }   else if (users[i][0] == arg[0] && users[i][1] != arg[1]) {// se so a senha estiver errada mantem o true do usuario e senha vira false
         senha = false
         usuario = true
-        console.log('\nAcesso negado!, senha incorreta\n')
-    }   else if (users[i][0] != arg[0] && users[i][1] != arg[1]) {
-        senha = false
-        usario = false
-
-    }  else {
-        console.log('')
-    }
+        console.log('\nAcesso negado!, senha incorreta\n')// mostra senha errada
+    }   
 
 }
 
-if (senha == false && usuario == false) {
+if (senha == false && usuario == false) {// se nao entrae no laco de repeticao nao altera seu valor e mostra o resultado 
     console.log(`usuario nao existe`)
 }
 
