@@ -15,42 +15,47 @@ const users = [
 
 
 const arg = process.argv.slice(2);
-usuario = false
-senha = false
 
+let usuario = false
+let senha = false
+let usuari = 0
 
 for (let i = 0; i < users.length; i++) {
 
-
+    let user = []
 
     if (users[i][0] == arg[0] && users[i][1] == arg[1]) {
-        usuario = true
         senha = true
-        console.log("Bem vindo(a) ", users[i][2], '!');
-        break;
-    }else if (users[i][0] == arg[0] && users[i][1] != arg[1]) {
         usuario = true
+        user[0] = users[i][0]
+        console.log('\nusuario enconstrado, bem vindo', users[i][2], '\n')
+
+    }   else if (users[i][0] == arg[0] && users[i][1] != arg[1]) {
         senha = false
-        console.log("Acesso negado, Senha incorreta!");
-        break;}
-    else if (users[i][0] != arg[0]) {   
-        usuario = false
+        usuario = true
+        console.log('\nAcesso negado!, senha incorreta\n')
+    }   else if (users[i][0] != arg[0] && users[i][1] != arg[1]) {
         senha = false
+        usario = false
+
+    }  else {
+        console.log('')
     }
-    
 
+}
 
+if (senha == false && usuario == false) {
+    console.log(`usuario nao existe`)
 }
 
 
 
-    
-    
-    
-    
-    
-    
-    // console.log(user[i][0], user[i][1], user[i][2]);
+
+
+
+
+
+// console.log(user[i][0], user[i][1], user[i][2]);
 
 // if (users[i][0] == arg[0] && users[i][1] == arg[1]) {
 //     console.log("Bem vindo(a) ", users[i][2],'!');
