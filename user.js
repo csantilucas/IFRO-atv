@@ -40,8 +40,8 @@ for (let i = 0; i < users.length; i++) {
 
 }
 
-if (senha == false && usuario == false) {// se nao entrae no laco de repeticao nao altera seu valor e mostra o resultado 
-    console.log(`usuario nao existe`)
+if (senha == false && usuario == false) {// se a senha e o usuario forem igual a false 
+    console.log(`Acesso negado ,usuario nao existe`)// mostra usuario nao encorntrado
 }
 
 
