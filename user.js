@@ -15,42 +15,43 @@ const users = [
 
 
 const arg = process.argv.slice(2);
-usuario = false
-senha = false
 
+let usuario = false
+let senha = false
+let usuari = 0
 
 for (let i = 0; i < users.length; i++) {
 
+    let user = []
 
-
-    if (users[i][0] == arg[0] && users[i][1] == arg[1]) {
-        usuario = true
+    if (users[i][0] == arg[0] && users[i][1] == arg[1]) {// verifica se o gmail e senha e igual
+        // se for senha e usuario igaul a true
         senha = true
-        console.log("Bem vindo(a) ", users[i][2], '!');
-        break;
-    }else if (users[i][0] == arg[0] && users[i][1] != arg[1]) {
         usuario = true
-        senha = false
-        console.log("Acesso negado, Senha incorreta!");
-        break;}
-    else if (users[i][0] != arg[0]) {   
-        usuario = false
-        senha = false
-    }
-    
+        user[0] = users[i][0]
+        //mostra o usuario encontrado
+        console.log('\nusuario enconstrado, bem vindo', users[i][2], '\n')
 
+    }   else if (users[i][0] == arg[0] && users[i][1] != arg[1]) {// se so a senha estiver errada mantem o true do usuario e senha vira false
+        senha = false
+        usuario = true
+        console.log('\nAcesso negado!, senha incorreta\n')// mostra senha errada
+    }   
 
+}
+
+if (senha == false && usuario == false) {// se a senha e o usuario forem igual a false 
+    console.log(`Acesso negado ,usuario nao existe`)// mostra usuario nao encorntrado
 }
 
 
 
-    
-    
-    
-    
-    
-    
-    // console.log(user[i][0], user[i][1], user[i][2]);
+
+
+
+
+
+// console.log(user[i][0], user[i][1], user[i][2]);
 
 // if (users[i][0] == arg[0] && users[i][1] == arg[1]) {
 //     console.log("Bem vindo(a) ", users[i][2],'!');
