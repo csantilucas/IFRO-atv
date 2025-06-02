@@ -11,12 +11,9 @@ const users = [
     ['user10@gmail.com', '10', 'User Ten']
 ]
 
-
 const arg = process.argv.slice(2);
-
 let usuario = false
 let senha = false
-
 for (let i = 0; i < users.length; i++) {// atravessa o array em busca dos usuarios
     if (users[i][0] == arg[0] && users[i][1] == arg[1]) {// verifica se o gmail e senha e igual
         // se for senha e usuario igaul a true
