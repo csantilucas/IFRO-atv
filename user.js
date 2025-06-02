@@ -1,5 +1,4 @@
 const users = [
-
     ['user1@gmail.com', '1', 'User One'],
     ['user2@gmail.com', '2', 'User Two'],
     ['user3@gmail.com', '3', 'User Three'],
@@ -10,7 +9,6 @@ const users = [
     ['user8@gmail.com', '8', 'User Eight'],
     ['user9@gmail.com', '9', 'User Nine'],
     ['user10@gmail.com', '10', 'User Ten']
-
 ]
 
 
@@ -30,6 +28,7 @@ for (let i = 0; i < users.length; i++) {// atravessa o array em busca dos usuari
         user[0] = users[i][0]
         //mostra o usuario encontrado
         console.log('\n\n\nUSUARIO ENCONTRADO, Bem Vindo!!', users[i][2], '\n')
+        break;
 
     }   else if (users[i][0] == arg[0] && users[i][1] != arg[1]) {// se so a senha estiver errada mantem o true do usuario e senha vira false
         senha = false//senha continua false
