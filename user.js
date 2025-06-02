@@ -18,31 +18,32 @@ const arg = process.argv.slice(2);
 
 let usuario = false
 let senha = false
-let usuari = 0
 
-for (let i = 0; i < users.length; i++) {
+for (let i = 0; i < users.length; i++) {// atravessa o array em busca dos usuarios
 
-    let user = []
+    let user = []// cria um array vazio para ser inserido 
 
     if (users[i][0] == arg[0] && users[i][1] == arg[1]) {// verifica se o gmail e senha e igual
         // se for senha e usuario igaul a true
-        senha = true
+        senha = true//muda o valor
         usuario = true
         user[0] = users[i][0]
         //mostra o usuario encontrado
-        console.log('\nusuario enconstrado, bem vindo', users[i][2], '\n')
+        console.log('\n\n\nUSUARIO ENCONTRADO, Bem Vindo!!', users[i][2], '\n')
 
     }   else if (users[i][0] == arg[0] && users[i][1] != arg[1]) {// se so a senha estiver errada mantem o true do usuario e senha vira false
-        senha = false
-        usuario = true
-        console.log('\nAcesso negado!, senha incorreta\n')// mostra senha errada
+        senha = false//senha continua false
+        usuario = true// usuario vira true
+        console.log('\n\n\nACESSO NEGADO!!!, senha incorreta\n')// mostra senha errada
     }   
 
 }
 
 if (senha == false && usuario == false) {// se a senha e o usuario forem igual a false 
-    console.log(`Acesso negado ,usuario nao existe`)// mostra usuario nao encorntrado
+    console.log(`\n\n\nACESSO NEGADO!!!, usuario nao existe\n\n\n`)// mostra usuario nao encorntrado
 }
+console.log('--------senha foi setetado no for para:',senha)
+console.log('------usuario foi setetado no for para:',usuario,'\n\n')
 
 
 
