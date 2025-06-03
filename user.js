@@ -12,10 +12,13 @@ const users = [
 ]
 
 const arg = process.argv.slice(2);
+var prompt = require('prompt-sync')();
+var e = prompt('Qual o email? ');
+var s = prompt('Qual a senha? ');
 let usuario = false
 let senha = false
 for (let i = 0; i < users.length; i++) {// atravessa o array em busca dos usuarios
-    if (users[i][0] == arg[0] && users[i][1] == arg[1]) {// verifica se o gmail e senha e igual
+    if (users[i][0] == e && users[i][1] == s) {// verifica se o gmail e senha e igual
         // se for senha e usuario igaul a true
         senha = true//muda o valor
         usuario = true
