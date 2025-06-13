@@ -25,10 +25,16 @@ create table aluno(
     references turma(turm_id) 
     on delete cascade on update cascade
     );
-    
+
+
+alter table turma add turm_sala varchar(45);
+alter table turma modify turm_sala int;
+alter table turma change turm_sala turma_sala varchar(45);
+alter table turma drop turma_sala;
 
 create index ix_alunos_nome on aluno (alun_nome);
 describe aluno;
+describe turma;
 
 #apagar a tabela
 
