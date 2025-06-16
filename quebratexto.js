@@ -3,11 +3,6 @@ let palavra = prompt('escreva uma frase: ')
 let a = [palavra]
 console.log(a[0].length)
 
-
-
-
-
-
 function quebraTexto(n) {
     let word = a[0]
     let b = []
@@ -26,7 +21,7 @@ function quebraTexto(n) {
         // console.log(b)
         console.log("|", "-".repeat(40), "|")
         console.log("|", n, '|')
-        console.log("|",b, '|')
+        console.log("|", b, '|')
         console.log("|", "-".repeat(40), "|")
 
 
