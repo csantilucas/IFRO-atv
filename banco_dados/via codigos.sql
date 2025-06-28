@@ -1,42 +1,40 @@
-#CRIAR BASE DE DADOS
-create database turma_2025;
-drop database turma_2025;
-drop table aluno;
-drop table turma;
-use turma_2025;
-#criar uma tabela
-
-create table turma (
-	turm_id int primary key,
-    turm_nome varchar(45)
+#DDL
+create database Sistema;
+#drop database sistema;
+CREATE TABLE categoria (
+    cat_id INT PRIMARY KEY AUTO_INCREMENT,
+    cat_nome VARCHAR(45)
 );
 
-create table aluno(
-	alun_id int auto_increment, 
-    alun_nome varchar(45) not null,
-    alun_cidade varchar(45) not null default"vilhena",
-    alun_dt_nascimento date not null,
-    alun_cpf varchar(11)not null,
-    fk_turm_id int,
-    unique key (alun_cpf,alun_dt_nascimento),
-    primary key (alun_id),
-    constraint fk_aluno_turma
-    foreign key (fk_turm_id)
-    references turma(turm_id) 
-    on delete cascade on update cascade
-    );
+CREATE TABLE produto (
+    prod_id INT PRIMARY KEY AUTO_INCREMENT,
+    prod_nome VARCHAR(45),
+    fk_categoria INT,
+    FOREIGN KEY (fk_categoria)
+        REFERENCES categoria (cat_id)
+        ON UPDATE RESTRICT ON DELETE RESTRICT
+);
+
+describe produto;
+alter table produto add prod_valor decimal (10,2);
 
 
-alter table turma add turm_sala varchar(45);
-alter table turma modify turm_sala int;
-alter table turma change turm_sala turma_sala varchar(45);
-alter table turma drop turma_sala;
-
-create index ix_alunos_nome on aluno (alun_nome);
-describe aluno;
-describe turma;
-
-#apagar a tabela
+#DML
+SELECT * FROM categoria; 
+SELECT * FROM produto; 
 
 
+#iserir valores na tabela
+insert into categoria values (1, "limpeza"), (2, "eletronico");
+insert into produto  (prod_nome, fk_categoria, prod_valor) values ("celular", 2, 10.5);
 
+#alterar os valores da tabela
+UPDATE produto 
+SET 
+    prod_nome = 'Poco X6',
+    prod_valor = 1500
+WHERE
+    prod_id = 2;
+
+delete from produto
+where prod_id=1;
