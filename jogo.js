@@ -3,13 +3,11 @@ let salaAtual = "Sala1"
 
 //usar objetos
 
-
 while (salaAtual != "Sala4") {
     descreveSala(salaAtual);
     const comando = prompt("insira o comando >");
     salaAtual = Comando(salaAtual, comando)
 }
-
 
 function descreveSala(sala) {
     switch (sala) {
