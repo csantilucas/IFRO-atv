@@ -80,9 +80,9 @@ const salas = {
 
 let backpack = {
     itens: {
-        lanterna: { status: false },
-        chave: { status: false },
-        bandagem: { status: false },
+        lanterna: { status: false, quant:100 },
+        chave: { status: false, quant:100},
+        bandagem: { status: false, quant:4 },
     }
 }
 
@@ -135,8 +135,9 @@ function mostrar_mochila() {
     console.log("MOCHILA:")
     for (chave in backpack.itens) {
         verifica = backpack.itens[chave].status
+        nivel = backpack.itens[chave].quant
         if (verifica == true)
-            console.log(chave)
+            console.log(chave,"status:"+nivel+"%")
     }
     console.log("------------------")
 }
@@ -188,22 +189,28 @@ function saudeJogador(comando) {
 }
 
 function usarItem(comando) {
-    if (comando === "usar chave" && salaAtual.condicao == false) {
+    if (comando === "usar chave" && salaAtual.condicao == false ) {
         if (backpack.itens.chave.status) { // Verifica se a chave está na mochila
             salaAtual.condicao = true; // Destranca a sala
-            console.log("Você usou a chave e destrancou a porta!");
+           
 
         }
     }
     if (comando === "usar lanterna" && salaAtual.status == false) {
         if (backpack.itens.lanterna.status) { // Verifica se a lanterna está na mochila
             salaAtual.status = true; // liga a lanterna
-            console.log("Você usou a chave e destrancou a porta!");
+            backpack.itens.lanterna.quant -=10
+        }else if(backpack.itens.lanterna.quant < 0){
+            backpack.itens.lanterna.status = false
         }
     }
     if (comando === "usar bandagem" && backpack.itens.bandagem.status) {
-        player.saude += 50
-    }
+        player.saude += 25
+        backpack.itens.bandagem.quant -=1
+        console.log("Você usou uma bandagem");
+    }else if(backpack.itens.bandagem.quant < 0){
+            backpack.itens.bandagem.status = false
+        }
 }
 
 function fimjogo(comando) {
