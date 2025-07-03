@@ -95,9 +95,14 @@ let salaAtual = salas["Porta"];
 let jogo = true
 
 while (jogo) {
+    console.log("\n\n")
     console.log("Saude do Jogador:" + player.saude)
+    console.log("\n")
     mostrar_mochila();
+    console.log("\n")
+    
     mostrarSala();
+    console.log("\n\n")
     const comando = prompt(">");
     saudeJogador(comando)
     usarItem(comando)
@@ -106,6 +111,7 @@ while (jogo) {
     pegar_item(item, comando);
     mudaSala(destino);
 
+    
     //condicoes para parar o jogo
     //fimjogo(comando)funcco par fazer isso
     if (comando === "ex") {
