@@ -96,7 +96,6 @@ PK_registro int primary key,
 regi_data date,
 regi_descricao varchar(45),
 regi_nivel varchar(45)
-
 );
 
 
