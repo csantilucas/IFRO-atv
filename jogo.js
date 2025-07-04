@@ -1,5 +1,5 @@
 const prompt = require("prompt-sync")();
-
+let morte = false
 
 const salas = {
     Porta: {
@@ -11,9 +11,9 @@ const salas = {
         item: {
             pegar: "chave",
         },
-        status: true,
-        condicao: true,
-        seuStatus: true
+        status: true,// luz
+        condicao: true,// aberto/fechado
+        seuStatus: true // saude do jogador
     },
 
     sala: {
@@ -26,24 +26,25 @@ const salas = {
         item: {
             pegar: "lanterna",
         },
-        status: true,
-        condicao: false,
-        seuStatus: true
+        status: true, // luz
+        condicao: false, // aberto/fechado
+        seuStatus: true // saude do jogador
 
     },
 
     quintal: {
-        descricao: "Você entrou no quintal, parece que ninguem cuida desse lugar a muito tempo, o mato esta alto e a grama seca, tem um cachorro morto no canto, e uma arvore velha com um balanço quebrado, parece que ninguem brinca aqui a muito tempo. A casa parece estar abandonada, mas você pode ver uma luz piscando na janela da sala.você pensa (Talvez eu possa pular a janela e entrar na sala)",
+        descricao: "Você entrou no quintal, parece que ninguem cuida desse lugar a muito tempo, o mato esta alto e a grama seca, tem um cachorro morto no canto, pacerece ter um jardim com uma arvore velha com um balanço quebrado, parece que ninguem brinca aqui a muito tempo. A casa parece estar abandonada, mas você pode ver uma luz piscando na janela da sala.você pensa (Talvez eu possa pular a janela e entrar na sala)",
         conexoes: {
             "pular": "salaAternativa",
             "voltar": "Porta",
+            "ir para jardim":"Jardim"
         },
         item: {
             pegar: "nada aqui",
         },
-        status: true,
-        condicao: true,
-        seuStatus: true
+        status: true,// luz
+        condicao: true, // aberto/fechado
+        seuStatus: true // saude do jogador
 
     },
 
@@ -57,11 +58,10 @@ const salas = {
         item: {
             pegar: "lanterna",
         },
-        status: true,
-        condicao: true,
-        seuStatus: false
+        status: true, // luz
+        condicao: true, // aberto/fechado
+        seuStatus: false // saude do jogador
     },
-
     cozinha: {
         descricao: "Entrou na cozinha.",
         conexoes: {
@@ -72,10 +72,65 @@ const salas = {
         item: {
             pegar: "bandagem",
         },
-        status: false,
-        condicao: true,
-        seuStatus: false
+        status: false, // luz
+        condicao: true, // aberto/fechado
+        seuStatus: false // saude do jogador
     },
+    Jardim: {
+        descricao: "Voce entrou no jardir, para que nao é cuidado a muito anos uma árvore antiga estende seus galhos até o telhado (parece ter uma entrado por ali). Em um dos galhos, balança lentamente um velho balanço de madeira — range sem vento, como se alguém invisível ainda brincasse ali. O mato alto cobre o jardim, sufocando qualquer vida que um dia floresceu.",
+        conexoes: {
+            "subir na arvore": "Arvore",
+            "voltar": "Porta",
+        },
+        item: {
+            pegar: "nada aqui",
+        },
+        status: true,// luz
+        condicao: true, // aberto/fechado
+        seuStatus: true // saude do jogador
+    },
+    Arvore: {
+        descricao: "Voce subiu na arvore, o galho ate o telhado parece aparentemente bem firme para chegar ate o telhado. ",
+        conexoes: {
+            "ir para o telhado": "telhado",
+            "descer":"Jardim"
+        },
+        item: {
+            pegar: "nada aqui",
+        },
+        status: true,// luz
+        condicao: true, // aberto/fechado
+        seuStatus: true // saude do jogador
+    },
+    telhado: {
+        descricao: "Quase chegando no telhado vc escuta um estralo do galho atras de voce e pula para o telhado. Com muito esforço voce consegui suibiu no telhado, ele esta cheio de lodo e parece muito escorregadia. Tem uma portinha aberta na parede do telhado ",
+        conexoes: {
+            "entrar na porta ": "Sotao",
+            "olhar em volta": "telhadomorte" ,
+            
+            
+        },
+        item: {
+            pegar: "nada aqui",
+        },
+        status: true,// luz
+        condicao: true, // aberto/fechado
+        seuStatus: true // saude do jogador
+    },
+    telhadomorte: {
+        descricao: "voce escorreugou do telhado e caiu de cabeça, seu pescoço quebrou",
+        conexoes: {
+            
+        },
+        item: {
+            pegar: "nada aqui",
+        },
+        status: true,// luz
+        condicao: true, // aberto/fechado
+        seuStatus: true // saude do jogador
+    },
+   
+  
 };
 
 let backpack = {
@@ -95,15 +150,37 @@ let salaAtual = salas["Porta"];
 let jogo = true
 
 while (jogo) {
+
+    
+
     console.log("\n\n")
     console.log("Saude do Jogador:" + player.saude)
     console.log("\n")
     mostrar_mochila();
     console.log("\n")
-    
     mostrarSala();
     console.log("\n\n")
     const comando = prompt(">");
+
+    if (comando === "ex") {
+        console.clear()
+        console.log("Saindo do jogo...");
+        break
+
+    }
+    else if (player.saude <= 0) {
+        console.clear()
+        console.log("Voce morreu!, sua saude:", player.saude)
+        
+        break
+    }
+
+    else if (comando == "olhar em volta"){
+        console.log("voce morreu")
+        break
+    }
+
+
     saudeJogador(comando)
     usarItem(comando)
     const destino = salaAtual.conexoes[comando];
@@ -114,18 +191,7 @@ while (jogo) {
     
     //condicoes para parar o jogo
     //fimjogo(comando)funcco par fazer isso
-    if (comando === "ex") {
-        console.clear()
-        console.log("Saindo do jogo...");
-        break
-
-    }
-    if (player.saude <= 0) {
-        console.clear()
-        console.log("Voce morreu!, sua saude:", player.saude)
-        
-        break
-    }
+    
     console.clear()
 
 }
