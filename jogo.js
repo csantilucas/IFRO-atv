@@ -1,12 +1,15 @@
 const prompt = require("prompt-sync")();
-let morte = false
+
 
 const salas = {
     Porta: {
-        descricao: "Você está em frente da porta de uma casa parece que tem uma chave em cima da mesinha ao lado, voce pensa(Deve ser a chave da porta), ao lado esquerdo da casa tem um quintal mal cuidado",
+        descricao: "Você está em frente da porta de uma casa abandona, estremamente velha. Parece que tem uma chave em cima da mesinha ao lado, voce pensa(Deve ser a chave da porta), ao lado esquerdo da casa tem um quintal mal cuidado",
         conexoes: {
             "abrir porta": "sala",
             "quintal": "quintal",
+            "voltar para a rua": "salaFinal",
+
+
         },
         item: {
             pegar: "chave",
@@ -15,7 +18,13 @@ const salas = {
         condicao: true,// aberto/fechado
         seuStatus: true // saude do jogador
     },
-
+    saidaFinal: {
+        descricao: "Parabéns! Voce ganhou. Você é esperto, não tem porque você entrar em uma casa abandonada. ",
+        status: true,
+        condicao: true,
+        seuStatus: true,
+        fim: true // <-- final feliz!
+    },
     sala: {
         descricao: "Voce entrou na sala. Parece que nao ha nada fora do comum, um sofa velho com um pano estampado  de flores por cima dele, uma mesa de centro com os pes de madeira e a tampa de vidro, parece ter uma lanterna em cima dela, e um tapete esquisito com marcas de botas suja de lama que levam ate a outra sala, mas parece que nao tem luz la, .",
         conexoes: {
@@ -31,13 +40,27 @@ const salas = {
         seuStatus: true // saude do jogador
 
     },
+    salaAberta: {
+        descricao: "Voce entrou na sala, tem uma porta a sua frente.",
+        conexoes: {
+            "abrir porta": "Porta",
+            "voltar": "cozinha",
 
+        },
+        item: {
+            pegar: "lanterna",
+        },
+        status: true, // luz
+        condicao: true, // aberto/fechado
+        seuStatus: true // saude do jogador
+
+    },
     quintal: {
         descricao: "Você entrou no quintal, parece que ninguem cuida desse lugar a muito tempo, o mato esta alto e a grama seca, tem um cachorro morto no canto, pacerece ter um jardim com uma arvore velha com um balanço quebrado, parece que ninguem brinca aqui a muito tempo. A casa parece estar abandonada, mas você pode ver uma luz piscando na janela da sala.você pensa (Talvez eu possa pular a janela e entrar na sala)",
         conexoes: {
             "pular": "salaAternativa",
             "voltar": "Porta",
-            "ir para jardim":"Jardim"
+            "ir para o jardim": "Jardim"
         },
         item: {
             pegar: "nada aqui",
@@ -47,7 +70,6 @@ const salas = {
         seuStatus: true // saude do jogador
 
     },
-
     salaAternativa: {
         descricao: "Voce pulou a janela pisou em algo pontudo e atravesou seu pe, começou a sangrar e voce GRITOU DE DOR. Voce conseguiu entrar na sala mas esta mancando e sangrando muito, se nao cuidar disso voce pode desmaiar.Voce olha em volta e ve uma mesa de centro e parece ter uma lanterna em cima dela, tem uma sala com  luz piscando as sua direita e voce ouve uma goteira vindo de la, voce pensa que pode ser a cozinha, talvez possa ter uma pano para ajudar com o sangramento.",
         conexoes: {
@@ -62,11 +84,11 @@ const salas = {
         condicao: true, // aberto/fechado
         seuStatus: false // saude do jogador
     },
-    cozinha: {
-        descricao: "Entrou na cozinha.",
+    cozinhaAlternativa: {
+        descricao: "o chao sedeu e voce caiu do sotao na cozinha, quebrou sua perna na queda, e esta mancando. Voce ve uma sala na sua direita, parece ter algumas prateleiras com algumas latas antigas de comida, voce pensa qque pode ter alguma coisa para ajudar com seus ferimentos na cozinha ou nessa sala",
         conexoes: {
-            "voltar": "sala",
-            "sala escura": "cozinha",
+            "voltar": "salaAberta",
+            "dispensa": "morteDispensa",
 
         },
         item: {
@@ -75,6 +97,24 @@ const salas = {
         status: false, // luz
         condicao: true, // aberto/fechado
         seuStatus: false // saude do jogador
+    },
+    cozinha: {
+        descricao: "Entrou na cozinha, ela esta muito velha, tem uma dispensa a direita.",
+        conexoes: {
+            "voltar": "salaAberta",
+            "entrar na dispensa": "morteDispensa",
+
+        },
+        item: {
+            pegar: "bandagem",
+        },
+        status: false, // luz
+        condicao: true, // aberto/fechado
+        seuStatus: false // saude do jogador
+    },
+    morteDispensa: {
+        descricao: "entrou na dispensa, e o chao era falso, tinha um buraco de 3 mestros de pronfundidade com espinhos, você ficou agonizando ate morrer por hemoragia",
+        jogo: false
     },
     Jardim: {
         descricao: "Voce entrou no jardir, para que nao é cuidado a muito anos uma árvore antiga estende seus galhos até o telhado (parece ter uma entrado por ali). Em um dos galhos, balança lentamente um velho balanço de madeira — range sem vento, como se alguém invisível ainda brincasse ali. O mato alto cobre o jardim, sufocando qualquer vida que um dia floresceu.",
@@ -93,7 +133,7 @@ const salas = {
         descricao: "Voce subiu na arvore, o galho ate o telhado parece aparentemente bem firme para chegar ate o telhado. ",
         conexoes: {
             "ir para o telhado": "telhado",
-            "descer":"Jardim"
+            "descer": "Jardim"
         },
         item: {
             pegar: "nada aqui",
@@ -105,10 +145,10 @@ const salas = {
     telhado: {
         descricao: "Quase chegando no telhado vc escuta um estralo do galho atras de voce e pula para o telhado. Com muito esforço voce consegui suibiu no telhado, ele esta cheio de lodo e parece muito escorregadia. Tem uma portinha aberta na parede do telhado ",
         conexoes: {
-            "entrar na porta ": "Sotao",
-            "olhar em volta": "telhadomorte" ,
-            
-            
+            "entrar na porta": "Sotao",
+            "olhar em volta": "morteTelhado",
+
+
         },
         item: {
             pegar: "nada aqui",
@@ -117,27 +157,32 @@ const salas = {
         condicao: true, // aberto/fechado
         seuStatus: true // saude do jogador
     },
-    telhadomorte: {
-        descricao: "voce escorreugou do telhado e caiu de cabeça, seu pescoço quebrou",
+    morteTelhado: {
+        descricao: "escorregou do telhado caiu e quebrou o pescoco",
+        jogo: false
+    },
+    Sotao: {
+        descricao: "voce entrou pela portinha e ve um sotao iluminado pela abertura da porta, voce ve uma lanterna em cima de uma caixa ao lado da entrada, talvez tenha alguma coisa aqui dentro",
         conexoes: {
-            
+            "investigar": "cozinhaAlternativa",
+
         },
         item: {
-            pegar: "nada aqui",
+            pegar: "lanterna",
         },
         status: true,// luz
         condicao: true, // aberto/fechado
         seuStatus: true // saude do jogador
     },
-   
-  
+
+
 };
 
 let backpack = {
     itens: {
-        lanterna: { status: false, quant:100 },
-        chave: { status: false, quant:100},
-        bandagem: { status: false, quant:4 },
+        lanterna: { status: false, quant: 100 },
+        chave: { status: false, quant: 100 },
+        bandagem: { status: false, quant: 2 },
     }
 }
 
@@ -149,9 +194,20 @@ let player = {
 let salaAtual = salas["Porta"];
 let jogo = true
 
-while (jogo) {
+while (jogo == true) {
 
-    
+
+    if (salaAtual.fim === true) {
+        console.log(salaAtual.descricao);
+        jogo = false;
+        break;
+    }
+    if (salaAtual.jogo == false) {
+        console.log("voce morreu...")
+        console.log(salaAtual.descricao)
+        break;
+
+    }
 
     console.log("\n\n")
     console.log("Saude do Jogador:" + player.saude)
@@ -162,35 +218,46 @@ while (jogo) {
     console.log("\n\n")
     const comando = prompt(">");
 
-    if (comando === "ex") {
+
+
+
+
+
+    saudeJogador(comando)
+    usarItem(comando, jogo)
+    const destino = salaAtual.conexoes[comando];
+    let item = salaAtual.item.pegar;
+    pegar_item(item, comando);
+    let salaAnterior = salaAtual;
+    mudaSala(destino);
+
+
+    //condicoes para parar o jogo
+    if (salaAtual !== salaAnterior) {
+        // Se a nova sala está escura E a lanterna não está ativa no inventário
+
+
+
+        if (salaAtual.status === false && backpack.itens.lanterna.status === false) {
+            console.clear();
+            console.log("Está muito escuro! Você tentou andar em uma sala escura sem luz, tropeçou, bateu a cabeça e morreu...");
+            jogo = false; // Encerra o jogo
+            continue; // Pula o resto da iteração do loop para encerrar imediatamente
+        }
+    }
+    if (comando == "ex") {
         console.clear()
         console.log("Saindo do jogo...");
         break
 
     }
-    else if (player.saude <= 0) {
+    if (player.saude <= 0) {
         console.clear()
         console.log("Voce morreu!, sua saude:", player.saude)
-        
+
         break
     }
-
-    else if (comando == "olhar em volta"){
-        console.log("voce morreu")
-        break
-    }
-
-
-    saudeJogador(comando)
-    usarItem(comando)
-    const destino = salaAtual.conexoes[comando];
-    let item = salaAtual.item.pegar;
-    pegar_item(item, comando);
-    mudaSala(destino);
-
     
-    //condicoes para parar o jogo
-    //fimjogo(comando)funcco par fazer isso
     
     console.clear()
 
@@ -203,7 +270,7 @@ function mostrar_mochila() {
         verifica = backpack.itens[chave].status
         nivel = backpack.itens[chave].quant
         if (verifica == true)
-            console.log(chave,"status:"+nivel+"%")
+            console.log(chave, "status:" + nivel + "%")
     }
     console.log("------------------")
 }
@@ -248,35 +315,61 @@ function saudeJogador(comando) {
         player.saude -= 50;
         player.ferido = true;
 
-    } else if (player.ferido = true && player.saude < 60) {
+    } if (comando === "investigar" && salaAtual === salas["Sotao"]) {
+        player.saude -= 90;
+        player.ferido = true;
+
+    }
+
+    if (player.ferido = true && player.saude < 60) {
         player.saude -= 2
     }
 
 }
 
-function usarItem(comando) {
-    if (comando === "usar chave" && salaAtual.condicao == false ) {
-        if (backpack.itens.chave.status) { // Verifica se a chave está na mochila
-            salaAtual.condicao = true; // Destranca a sala
-           
+function usarItem(comando) { // Removi 'jogo' do parâmetro, pois a lógica de 'jogo = false' é tratada no loop principal
+    if (comando === "usar chave" && !salaAtual.condicao) {
+        if (backpack.itens.chave.status) {
+            salaAtual.condicao = true;
+            backpack.itens.chave.status = false; // A chave deve ser "consumida" ou removida após o uso.
+            console.log("Você usou a chave e a porta foi destrancada!");
+        } else {
+            console.log("Você não tem a chave para usar.");
+        }
+    } else if (comando === "usar lanterna") {
+        if (backpack.itens.lanterna.status && backpack.itens.lanterna.quant > 0) {
+            salaAtual.status = true;
+            backpack.itens.lanterna.quant -= 25;
+            console.log(`Você usou a lanterna. Carga restante: ${backpack.itens.lanterna.quant}%`);
 
+            if (backpack.itens.lanterna.quant <= 0) {
+                backpack.itens.lanterna.status = false;
+                console.log("A bateria da lanterna acabou!");
+            }
+            if (salaAtual.status === false && backpack.itens.lanterna.status === false && comando != "voltar") {
+                console.clear();
+                jogo = false;
+                return console.log("Está muito escuro! Você tropeça, bate a cabeça e morre...");
+            }
+        } else if (!backpack.itens.lanterna.status && backpack.itens.lanterna.quant <= 0) {
+            console.log("A bateria da lanterna está esgotada.");
+            salaAtual.status = false; // Garante que a sala fique escura se a lanterna estiver sem carga
+        } else {
+            console.log("Você não tem uma lanterna, ou ela não está ativada.");
+        }
+    } else if (comando === "usar bandagem") {
+        if (backpack.itens.bandagem.status && backpack.itens.bandagem.quant > 0) {
+            player.saude += 20;
+            backpack.itens.bandagem.quant -= 1;
+            console.log(`Você usou uma bandagem. Sua saúde é agora: ${player.saude}. Bandagens restantes: ${backpack.itens.bandagem.quant}`);
+            if (backpack.itens.bandagem.quant <= 0) {
+                backpack.itens.bandagem.status = false;
+                console.log("Você não tem mais bandagens.");
+            }
+        } else {
+            console.log("Você não tem bandagens para usar.");
         }
     }
-    if (comando === "usar lanterna" && salaAtual.status == false) {
-        if (backpack.itens.lanterna.status) { // Verifica se a lanterna está na mochila
-            salaAtual.status = true; // liga a lanterna
-            backpack.itens.lanterna.quant -=10
-        }else if(backpack.itens.lanterna.quant < 0){
-            backpack.itens.lanterna.status = false
-        }
-    }
-    if (comando === "usar bandagem" && backpack.itens.bandagem.status) {
-        player.saude += 25
-        backpack.itens.bandagem.quant -=1
-        console.log("Você usou uma bandagem");
-    }else if(backpack.itens.bandagem.quant < 0){
-            backpack.itens.bandagem.status = false
-        }
 }
 
 function fimjogo(comando) {
