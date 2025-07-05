@@ -19,10 +19,12 @@ CREATE TABLE lotacao (
 rename table cursos to curso;
 rename table alunos to aluno;
 
-alter table alunos change profissao alun_profissao varchar(45); 
-alter table cursos change totaulas total_aulas varchar(45);
+alter table aluno change profissao alun_profissao varchar(45); 
+alter table curso change totaulas total_aulas varchar(45);
 alter table professor change nome prof_nome varchar(45);
 alter table lotacao change sala lota_sala varchar(45);
+
+
 
 show tables;
 describe aluno;
@@ -139,10 +141,9 @@ select alun_nome, curs_nome, curs_id from curso, aluno, matricula where fk_aluno
 # Faça uma consulta que retorna quais cursos o aluno Elvis Schwarz está matriculado, retorne o nome do aluno, o nome do curso, a data de matricula. --------------------------------
 select alun_nome, curs_nome, mat_data from curso, aluno, matricula where fk_aluno=alun_id and fk_curso= curs_id and alun_nome = "Elvis Schwarz";
 
-select alun_nome, curs_nome, 
 
 #Faça uma consulta que retorna quais alunos estão matriculados no curso Lógica de Programação, retorne 
 #o nome deles, o nome do curso, a matricula, a carga horaria do curso e ordene o resultado em forma 
-#ascendente pelo nome do aluno.
+#ascendente pelo nome do aluno. 
 
 select alun_nome, curs_nome, mat_id, curs_carga from aluno, curso, matricula where fk_curso = curs_id and fk_aluno= alun_id order by alun_nome
