@@ -63,7 +63,7 @@ CREATE TABLE tb_professor (
 create table tb_horario(
 	PK_horario int primary key,
     hora_turma time,
-    hora_sala varchar(45)
+    hora_sala time
 );
 
 CREATE TABLE tb_turma (
@@ -92,6 +92,7 @@ regi_nivel varchar(45)
 
 CREATE TABLE tb_avaliacao (
     PK_avaliacao INT PRIMARY KEY,
+    FK_matricula INT,
     FK_registro INT,
     fedback_alun VARCHAR(100),
     aval_nota INT,
@@ -271,125 +272,5 @@ INSERT INTO tb_professor (PK_professor, FK_cadastro, prof_especialidade)
 	VALUES (4, 9, 'lingua inglesa');
 INSERT INTO tb_professor (PK_professor, FK_cadastro, prof_especialidade)
 	VALUES (5, 7, 'lingua espanhola');
-    
--- 7. Inserir Horário
-SELECT * FROM tb_horario;
-
-INSERT INTO tb_horario (PK_horario, hora_turma, hora_sala)
-	VALUES (1, '08:00:00', 'SALA A');
-INSERT INTO tb_horario (PK_horario, hora_turma, hora_sala)
-	VALUES (2, '10:00:00', 'SALA B');
-INSERT INTO tb_horario (PK_horario, hora_turma, hora_sala)
-	VALUES (3, '14:00:00', 'SALA C');
-INSERT INTO tb_horario (PK_horario, hora_turma, hora_sala)
-	VALUES (4, '16:00:00', 'SALA A');
-INSERT INTO tb_horario (PK_horario, hora_turma, hora_sala)
-	VALUES (5, '19:00:00', 'SALA B');
-    
--- 8. Inserir Turma
-SELECT * FROM tb_turma;
-
--- Turmas de Inglês
-INSERT INTO tb_turma (PK_turma, turm_nome, FK_curso, FK_horario, FK_professor)
-	VALUES (1, 'Inglês A1 - Manhã', 1, 1, 1); -- Curso 1 (Inglês A1), Horário 1 (08h, Sala A), Professor 1 (Inglês)
-INSERT INTO tb_turma (PK_turma, turm_nome, FK_curso, FK_horario, FK_professor)
-	VALUES (2, 'Inglês A2 - Tarde', 2, 3, 3); -- Curso 2 (Inglês A2), Horário 3 (14h, Sala C), Professor 3 (Inglês)
-INSERT INTO tb_turma (PK_turma, turm_nome, FK_curso, FK_horario, FK_professor)
-	VALUES (3, 'Inglês B1 - Noite', 3, 5, 4); -- Curso 3 (Inglês B1), Horário 5 (19h, Sala B), Professor 4 (Inglês)
-
--- Turmas de Espanhol
-INSERT INTO tb_turma (PK_turma, turm_nome, FK_curso, FK_horario, FK_professor)
-	VALUES (4, 'Espanhol A1 - Manhã', 4, 2, 2); -- Curso 4 (Espanhol A1), Horário 2 (10h, Sala B), Professor 2 (Espanhol)
-INSERT INTO tb_turma (PK_turma, turm_nome, FK_curso, FK_horario, FK_professor)
-	VALUES (5, 'Espanhol B2 - Tarde', 5, 4, 5); -- Curso 5 (Espanhol B2), Horário 4 (16h, Sala A), Professor 5 (Espanhol)
-
--- 9. Inserir Registro
-SELECT * FROM tb_registro;
-
-INSERT INTO tb_registro (PK_registro, regi_data, regi_descricao, regi_nivel)
-	VALUES (1, '2025-06-01', 'Início das aulas de Inglês A1', 'A1');
-INSERT INTO tb_registro (PK_registro, regi_data, regi_descricao, regi_nivel)
-	VALUES (2, '2025-06-15', 'Progresso em Espanhol A1', 'A1');
-INSERT INTO tb_registro (PK_registro, regi_data, regi_descricao, regi_nivel)
-	VALUES (3, '2025-07-01', 'Finalização Módulo Inglês A2', 'A2');
-INSERT INTO tb_registro (PK_registro, regi_data, regi_descricao, regi_nivel)
-	VALUES (4, '2025-07-10', 'Início das aulas de Inglês B1', 'B1');
-INSERT INTO tb_registro (PK_registro, regi_data, regi_descricao, regi_nivel)
-	VALUES (5, '2025-07-20', 'Progresso em Espanhol B2', 'B2');
-    
--- 10. Inserir Pagamento
-SELECT * FROM tb_pagamento;
-
-INSERT INTO tb_pagamento (PK_pagamento, paga_status, paga_fatura, paga_metodo, paga_nf)
-	VALUES (1, 'true', 'FAT001/2025', 'Cartão', 'NF001');
-INSERT INTO tb_pagamento (PK_pagamento, paga_status, paga_fatura, paga_metodo, paga_nf)
-	VALUES (2, 'true', 'FAT002/2025', 'Boleto', 'NF002');
-INSERT INTO tb_pagamento (PK_pagamento, paga_status, paga_fatura, paga_metodo, paga_nf)
-	VALUES (3, 'false', 'FAT003/2025', 'Pix', 'NF003');
-INSERT INTO tb_pagamento (PK_pagamento, paga_status, paga_fatura, paga_metodo, paga_nf)
-	VALUES (4, 'true', 'FAT004/2025', 'Cartão', 'NF004');
-INSERT INTO tb_pagamento (PK_pagamento, paga_status, paga_fatura, paga_metodo, paga_nf)
-	VALUES (5, 'false', 'FAT005/2025', 'Boleto', 'NF005');
-    
--- 12. Inserir Avaliação
-SELECT * FROM tb_avaliacao;
-
-INSERT INTO tb_avaliacao (PK_avaliacao, FK_registro, fedback_alun, aval_nota)
-	VALUES (1, 1, 'Aluno dedicado, bom progresso inicial.', 90); -- Matrícula 1, Registro 1
-INSERT INTO tb_avaliacao (PK_avaliacao, FK_registro, fedback_alun, aval_nota)
-	VALUES (2, 3, 'Bom desempenho no módulo.', 85); -- Matrícula 2, Registro 3
-INSERT INTO tb_avaliacao (PK_avaliacao, FK_registro, fedback_alun, aval_nota)
-	VALUES (3, 4, 'Precisa praticar mais a conversação.', 70); -- Matrícula 3, Registro 4
-INSERT INTO tb_avaliacao (PK_avaliacao, FK_registro, fedback_alun, aval_nota)
-	VALUES (4, 2, 'Excelente pronúncia, muito participativo.', 95); -- Matrícula 4, Registro 2
-INSERT INTO tb_avaliacao (PK_avaliacao, FK_registro, fedback_alun, aval_nota)
-	VALUES (5, 5, 'Entendimento da gramática precisa de reforço.', 75); -- Matrícula 5, Registro 5
-
--- 11. Inserir Matrícula
-SELECT * FROM tb_matricula;
 
 
-INSERT INTO tb_matricula (PK_matricula, FK_aluno, FK_curso, FK_pagamento, FK_avaliacao, FK_turma)
-	VALUES (1, 1, 1, 1, 1, 1); -- Aluno 1 (Ana Silva), Curso 1 (Inglês A1), Pgto 1, Turma 1
-INSERT INTO tb_matricula (PK_matricula, FK_aluno, FK_curso, FK_pagamento, FK_avaliacao, FK_turma)
-	VALUES (2, 2, 2, 2, 2, 2); -- Aluno 2 (Silva Ana), Curso 2 (Inglês A2), Pgto 2, Turma 2
-INSERT INTO tb_matricula (PK_matricula, FK_aluno, FK_curso, FK_pagamento, FK_avaliacao, FK_turma)
-	VALUES (3, 3, 3, 3, 3, 3); -- Aluno 3 (Ana Silva), Curso 3 (Espanhol B1), Pgto 3, Turma 3
-INSERT INTO tb_matricula (PK_matricula, FK_aluno, FK_curso, FK_pagamento, FK_avaliacao, FK_turma)
-	VALUES (4, 4, 4, 4, 4, 4); -- Aluno 4 (Ana Silva), Curso 4 (Espanhol A1), Pgto 4, Turma 4
-INSERT INTO tb_matricula (PK_matricula, FK_aluno, FK_curso, FK_pagamento, FK_avaliacao, FK_turma)
-	VALUES (5, 5, 5, 5, 5, 5); -- Aluno 5 (Ana Silva), Curso 5 (Espanhol B2), Pgto 5, Turma 5
-
-
--- 13. Inserir Relatório
-SELECT * FROM tb_relatorio;
-
-INSERT INTO tb_relatorio (PK_relatorio, fk_matricula, fk_turma)
-	VALUES (1, 1, 1); -- Relatório para Matrícula 1 (Aluno 1, Turma 1)
-INSERT INTO tb_relatorio (PK_relatorio, fk_matricula, fk_turma)
-	VALUES (2, 2, 2); -- Relatório para Matrícula 2 (Aluno 2, Turma 2)
-INSERT INTO tb_relatorio (PK_relatorio, fk_matricula, fk_turma)
-	VALUES (3, 3, 3); -- Relatório para Matrícula 3 (Aluno 3, Turma 3)
-INSERT INTO tb_relatorio (PK_relatorio, fk_matricula, fk_turma)
-	VALUES (4, 4, 4); -- Relatório para Matrícula 4 (Aluno 4, Turma 4)
-INSERT INTO tb_relatorio (PK_relatorio, fk_matricula, fk_turma)
-	VALUES (5, 5, 5); -- Relatório para Matrícula 5 (Aluno 5, Turma 5)
-    
-# pesquisa pela matricula do nome, curso, nnivel do aluno, nota do aluno, e fedback do aluno
-select 
-PK_relatorio, pess_nome as 'aluno', curs_nome, nivel, aval_nota, fedback_alun 
-from
-tb_relatorio,
-tb_nivel_lingua,
-tb_curso,
-tb_aluno,
-tb_matricula,
-tb_avaliacao,
-tb_cadastro_pessoa
-where
-fk_matricula = pk_matricula and
-tb_aluno.fk_nivel = PK_nivel and
-FK_avaliacao = pk_avaliacao and
-fk_aluno = PK_aluno and
-fk_curso = PK_curso and
-fk_cadastro = PK_cadastro;
