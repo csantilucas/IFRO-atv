@@ -178,6 +178,7 @@ const salas = {
 
 };
 
+
 let backpack = {
     itens: {
         lanterna: { status: false, quant: 100 },
@@ -185,7 +186,6 @@ let backpack = {
         bandagem: { status: false, quant: 2 },
     }
 }
-
 let player = {
     saude: 100,
     ferido: false,
@@ -262,7 +262,6 @@ while (jogo == true) {
     console.clear()
 
 }
-
 function mostrar_mochila() {
     console.log("------------------")
     console.log("MOCHILA:")
@@ -274,13 +273,11 @@ function mostrar_mochila() {
     }
     console.log("------------------")
 }
-
 function pegar_item(item, comando) {
     if (comando == "pegar" + " " + item) {
         backpack.itens[item].status = true;
     }
 }
-
 function mostrarSala() {
 
     if (!salaAtual.condicao) {
@@ -302,13 +299,11 @@ function mostrarSala() {
 
 
 }
-
 function mudaSala(destino) {
     if (destino) {
         salaAtual = salas[destino];
     }
 }
-
 function saudeJogador(comando) {
 
     if (comando === "pular" && salaAtual === salas["quintal"]) {
@@ -326,7 +321,6 @@ function saudeJogador(comando) {
     }
 
 }
-
 function usarItem(comando) { // Removi 'jogo' do parâmetro, pois a lógica de 'jogo = false' é tratada no loop principal
     if (comando === "usar chave" && !salaAtual.condicao) {
         if (backpack.itens.chave.status) {
@@ -371,7 +365,6 @@ function usarItem(comando) { // Removi 'jogo' do parâmetro, pois a lógica de '
         }
     }
 }
-
 function fimjogo(comando) {
     if (comando === "ex") {
         let tela = console.log("Saindo do jogo...");
@@ -385,4 +378,3 @@ function fimjogo(comando) {
         return tela;
     }
 }
-
