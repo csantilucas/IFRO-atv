@@ -3,7 +3,7 @@ const prompt = require("prompt-sync")();
 
 const salas = {
     Porta: {
-        descricao: "Você está em frente da porta de uma casa abandona, estremamente velha. Parece que tem uma chave em cima da mesinha ao lado, voce pensa(Deve ser a chave da porta), ao lado esquerdo da casa tem um quintal mal cuidado",
+        descricao: "Você estava andando pela rua e passou perto de um buraco e escorregou e foi parar na frente de uma casa velha e abandonada. a sua frente  porta de uma casa abandona, estremamente velha. Parece que tem uma chave em cima da mesinha ao lado, voce pensa(Deve ser a chave da porta), ao lado esquerdo da casa tem um quintal mal cuidado",
         conexoes: {
             "abrir porta": "sala",
             "quintal": "quintal",
@@ -19,7 +19,7 @@ const salas = {
         seuStatus: true // saude do jogador
     },
     saidaFinal: {
-        descricao: "Parabéns! Voce ganhou. Você é esperto, não tem porque você entrar em uma casa abandonada. ",
+        descricao: "Parabéns! Voce ganhou. Você é esperto, não tem porque você entrar em uma casa abandonada, então voce voltou para a rua  ",
         status: true,
         condicao: true,
         seuStatus: true,
