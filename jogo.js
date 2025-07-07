@@ -41,7 +41,7 @@ const salas = {
 
     },
     salaAberta: {
-        descricao: "Voce entrou na sala, tem uma porta a sua frente.",
+        descricao: "Voce entrou na sala parece bem velha com um sofa fedendo a mofo e uma mesa de de centro as paredes paredes estao desmanchando e tem uma porta a sua frente.",
         conexoes: {
             "abrir porta": "Porta",
             "voltar": "cozinha",
