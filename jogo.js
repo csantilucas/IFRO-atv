@@ -18,7 +18,7 @@ const salas = {
         condicao: true,// aberto/fechado
         seuStatus: true // saude do jogador
     },
-    saidaFinal: {
+    salaFinal: {
         descricao: "Parabéns! Voce ganhou. Você é esperto, não tem porque você entrar em uma casa abandonada, então voce voltou para a rua  ",
         status: true,
         condicao: true,
