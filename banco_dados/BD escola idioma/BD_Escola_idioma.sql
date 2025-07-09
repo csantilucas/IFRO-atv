@@ -97,7 +97,6 @@ CREATE TABLE tb_avaliacao (
     aval_nota INT,
     CONSTRAINT FK_REGISTRO_AVALIACAO FOREIGN KEY (FK_registro)
         REFERENCES tb_registro (PK_registro)
-        ON UPDATE RESTRICT ON DELETE RESTRICT
 );
 
 CREATE TABLE tb_pagamento (
@@ -125,11 +124,9 @@ CREATE TABLE tb_matricula (
         REFERENCES tb_curso(PK_curso)
         ON UPDATE RESTRICT ON DELETE RESTRICT,
     CONSTRAINT Fk_PAGAMENTO_MATRICULA FOREIGN KEY (FK_pagamento)
-        REFERENCES tb_pagamento (PK_pagamento)
-        ON UPDATE RESTRICT ON DELETE RESTRICT,
+        REFERENCES tb_pagamento (PK_pagamento),
 	 CONSTRAINT Fk_AVALIACAO_MATRICULA FOREIGN KEY (FK_avaliacao)
-        REFERENCES tb_avaliacao(PK_avaliacao) 
-        ON UPDATE RESTRICT ON DELETE RESTRICT
+        REFERENCES tb_avaliacao(PK_avaliacao)
 );
 
 CREATE TABLE tb_relatorio (
