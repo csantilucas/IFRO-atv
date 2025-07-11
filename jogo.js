@@ -17,6 +17,22 @@ const salas = {
         condicao: true,// aberto/fechado
         seuStatus: true // saude do jogador
     },
+    Porta1: {
+        descricao: "a sua frente  porta da casa abandona, estremamente velha",
+        conexoes: {
+            "abrir porta": "sala",
+            "quintal": "quintal",
+            "voltar para a rua": "salaFinal",
+
+
+        },
+        item: {
+            pegar: "chave",
+        },
+        status: true,// luz
+        condicao: true,// aberto/fechado
+        seuStatus: true // saude do jogador
+    },
     salaFinal: {
         descricao: "Parabéns! Voce ganhou. Você é esperto, não tem porque você entrar em uma casa abandonada, então voce voltou para a rua  ",
         status: true,
@@ -27,7 +43,7 @@ const salas = {
     sala: {
         descricao: "Voce entrou na sala. Parece que nao ha nada fora do comum, um sofa velho com um pano estampado  de flores por cima dele, uma mesa de centro com os pes de madeira e a tampa de vidro, parece ter uma lanterna em cima dela, e um tapete esquisito com marcas de botas suja de lama que levam ate a outra sala, mas parece que nao tem luz la, .",
         conexoes: {
-            "voltar": "Porta",
+            "voltar": "Porta1",
             "sala escura": "cozinha",
 
         },
@@ -42,7 +58,7 @@ const salas = {
     salaAberta: {
         descricao: "Voce entrou na sala parece bem velha com um sofa fedendo a mofo e uma mesa de de centro as paredes paredes estao desmanchando e tem uma porta a sua frente.",
         conexoes: {
-            "abrir porta": "Porta",
+            "abrir porta": "Porta1",
             "voltar": "cozinha",
 
         },
@@ -72,7 +88,7 @@ const salas = {
     salaAternativa: {
         descricao: "Voce pulou a janela pisou em algo pontudo e atravesou seu pe, começou a sangrar e voce GRITOU DE DOR. Voce conseguiu entrar na sala mas esta mancando e sangrando muito, se nao cuidar disso voce pode desmaiar.Voce olha em volta e ve uma mesa de centro e parece ter uma lanterna em cima dela, tem uma sala com  luz piscando as sua direita e voce ouve uma goteira vindo de la, voce pensa que pode ser a cozinha, talvez possa ter uma pano para ajudar com o sangramento.",
         conexoes: {
-            "voltar": "Porta",
+            "voltar": "Porta1",
             "sala escura": "cozinha",
 
         },
