@@ -1,6 +1,5 @@
 const prompt = require("prompt-sync")();
 
-
 const salas = {
     Porta: {
         descricao: "Você estava andando pela rua e passou perto de um buraco e escorregou e foi parar na frente de uma casa velha e abandonada. a sua frente  porta de uma casa abandona, estremamente velha. Parece que tem uma chave em cima da mesinha ao lado, voce pensa(Deve ser a chave da porta), ao lado esquerdo da casa tem um quintal mal cuidado",
@@ -178,7 +177,6 @@ const salas = {
 
 };
 
-
 let backpack = {
     itens: {
         lanterna: { status: false, quant: 100 },
@@ -276,6 +274,7 @@ function mostrar_mochila() {
 function pegar_item(item, comando) {
     if (comando == "pegar" + " " + item) {
         backpack.itens[item].status = true;
+        salaAtual.item.pegar = "nada aqui"
     }
 }
 function mostrarSala() {
