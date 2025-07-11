@@ -189,8 +189,6 @@ const salas = {
         condicao: true, // aberto/fechado
         seuStatus: true // saude do jogador
     },
-
-
 };
 
 let backpack = {
