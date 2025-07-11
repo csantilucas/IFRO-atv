@@ -116,7 +116,7 @@ const salas = {
         jogo: false
     },
     Jardim: {
-        descricao: "Voce entrou no jardir, para que nao é cuidado a muito anos uma árvore antiga estende seus galhos até o telhado (parece ter uma entrado por ali). Em um dos galhos, balança lentamente um velho balanço de madeira — range sem vento, como se alguém invisível ainda brincasse ali. O mato alto cobre o jardim, sufocando qualquer vida que um dia floresceu.",
+        descricao: "Voce entrou no jardim, parace que nao é cuidado a muito anos uma árvore antiga estende seus galhos até o telhado (parece ter uma entrado por ali). Em um dos galhos, balança lentamente um velho balanço de madeira — range sem vento, como se alguém invisível ainda brincasse ali. O mato alto cobre o jardim, sufocando qualquer vida que um dia floresceu.",
         conexoes: {
             "subir na arvore": "Arvore",
             "voltar": "Porta",
@@ -215,11 +215,6 @@ while (jogo == true) {
     mostrarSala();
     console.log("\n\n")
     const comando = prompt(">");
-
-
-
-
-
 
     saudeJogador(comando)
     usarItem(comando, jogo)
