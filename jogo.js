@@ -1,9 +1,24 @@
 const prompt = require("prompt-sync")();
 
-
 const salas = {
     Porta: {
         descricao: "Você estava andando pela rua e passou perto de um buraco e escorregou e foi parar na frente de uma casa velha e abandonada. a sua frente  porta de uma casa abandona, estremamente velha. Parece que tem uma chave em cima da mesinha ao lado, voce pensa(Deve ser a chave da porta), ao lado esquerdo da casa tem um quintal mal cuidado",
+        conexoes: {
+            "abrir porta": "sala",
+            "quintal": "quintal",
+            "voltar para a rua": "salaFinal",
+
+
+        },
+        item: {
+            pegar: "chave",
+        },
+        status: true,// luz
+        condicao: true,// aberto/fechado
+        seuStatus: true // saude do jogador
+    },
+    Porta1: {
+        descricao: "a sua frente  porta da casa abandona, estremamente velha",
         conexoes: {
             "abrir porta": "sala",
             "quintal": "quintal",
@@ -28,7 +43,7 @@ const salas = {
     sala: {
         descricao: "Voce entrou na sala. Parece que nao ha nada fora do comum, um sofa velho com um pano estampado  de flores por cima dele, uma mesa de centro com os pes de madeira e a tampa de vidro, parece ter uma lanterna em cima dela, e um tapete esquisito com marcas de botas suja de lama que levam ate a outra sala, mas parece que nao tem luz la, .",
         conexoes: {
-            "voltar": "Porta",
+            "voltar": "Porta1",
             "sala escura": "cozinha",
 
         },
@@ -43,7 +58,7 @@ const salas = {
     salaAberta: {
         descricao: "Voce entrou na sala parece bem velha com um sofa fedendo a mofo e uma mesa de de centro as paredes paredes estao desmanchando e tem uma porta a sua frente.",
         conexoes: {
-            "abrir porta": "Porta",
+            "abrir porta": "Porta1",
             "voltar": "cozinha",
 
         },
@@ -73,7 +88,7 @@ const salas = {
     salaAternativa: {
         descricao: "Voce pulou a janela pisou em algo pontudo e atravesou seu pe, começou a sangrar e voce GRITOU DE DOR. Voce conseguiu entrar na sala mas esta mancando e sangrando muito, se nao cuidar disso voce pode desmaiar.Voce olha em volta e ve uma mesa de centro e parece ter uma lanterna em cima dela, tem uma sala com  luz piscando as sua direita e voce ouve uma goteira vindo de la, voce pensa que pode ser a cozinha, talvez possa ter uma pano para ajudar com o sangramento.",
         conexoes: {
-            "voltar": "Porta",
+            "voltar": "Porta1",
             "sala escura": "cozinha",
 
         },
@@ -117,7 +132,7 @@ const salas = {
         jogo: false
     },
     Jardim: {
-        descricao: "Voce entrou no jardir, para que nao é cuidado a muito anos uma árvore antiga estende seus galhos até o telhado (parece ter uma entrado por ali). Em um dos galhos, balança lentamente um velho balanço de madeira — range sem vento, como se alguém invisível ainda brincasse ali. O mato alto cobre o jardim, sufocando qualquer vida que um dia floresceu.",
+        descricao: "Voce entrou no jardim, parace que nao é cuidado a muito anos uma árvore antiga estende seus galhos até o telhado (parece ter uma entrado por ali). Em um dos galhos, balança lentamente um velho balanço de madeira — range sem vento, como se alguém invisível ainda brincasse ali. O mato alto cobre o jardim, sufocando qualquer vida que um dia floresceu.",
         conexoes: {
             "subir na arvore": "Arvore",
             "voltar": "Porta",
@@ -174,10 +189,7 @@ const salas = {
         condicao: true, // aberto/fechado
         seuStatus: true // saude do jogador
     },
-
-
 };
-
 
 let backpack = {
     itens: {
@@ -217,11 +229,6 @@ while (jogo == true) {
     mostrarSala();
     console.log("\n\n")
     const comando = prompt(">");
-
-
-
-
-
 
     saudeJogador(comando)
     usarItem(comando, jogo)
@@ -276,6 +283,7 @@ function mostrar_mochila() {
 function pegar_item(item, comando) {
     if (comando == "pegar" + " " + item) {
         backpack.itens[item].status = true;
+        salaAtual.item.pegar = "nada aqui"
     }
 }
 function mostrarSala() {
