@@ -34,7 +34,20 @@ from autores as a
 inner join livros_autores as la on a.codigo=la.codigo_autor
 GROUP BY A.nome;
 
-
+SELECT
+    A.nome AS autor,
+    COUNT(L.numero) AS quantidade_de_livros,
+    GROUP_CONCAT(L.titulo SEPARATOR '; ') AS titulos
+FROM
+    Autores AS A
+INNER JOIN
+    Livros_Autores AS LA ON A.codigo = LA.codigo_autor
+INNER JOIN
+    Livros AS L ON LA.numero_livro = L.numero
+GROUP BY
+    A.nome
+ORDER BY
+    quantidade_de_livros DESC;
 
 
 
