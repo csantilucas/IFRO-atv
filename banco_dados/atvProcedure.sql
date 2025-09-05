@@ -1,4 +1,4 @@
-#1
+#1-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 DELIMITER $$
 create procedure 
@@ -22,7 +22,10 @@ call bp_buscarLivros('O Pelicano');
 
 
 
-#2
+#2---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 delimiter //
 create procedure 
 	pc_cadastrarFuncionario(in ps_CPF varchar(11),
@@ -63,7 +66,7 @@ select @msg_retorno;
 
 
 
-#3
+#3-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 DELIMITER //
@@ -92,3 +95,36 @@ select @mensagem;
 
 
 drop procedure pc_deleteLivro;
+
+
+#4--------------------------------------------------------------------------------------------------------
+
+
+DELIMITER //
+create procedure pc_updateLivro(in ps_numberLivro int,
+								in ps_livroValor float,
+								out ps_msg varchar(45))
+begin
+	declare numberLivro int;
+    set ps_msg = 'ERRO!';
+
+	select count(*) into numberLivro from livros as l where l.numero=ps_numberLivro;
+        
+	if (numberLivro = 0 ) then 
+		set ps_msg='nenhum livros encontrado';
+	else
+		update livros as l set preco = ps_livroValor where l.numero=ps_numberLivro ;
+		set ps_msg = 'valor atulizado com sucesso';
+	end if;
+   
+
+end //
+DELIMITER ;
+
+call pc_updateLivro(10277843, 15.6,@updatePreco);
+select @updatePreco;
+
+drop procedure pc_updateLivro;
+
+
+select *from livros;
