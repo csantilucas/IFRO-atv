@@ -18,7 +18,7 @@ DELIMITER ;
 
 call bp_buscarLivros('O Pelicano');
 
-drop procedure bp_buscarLivros;
+#drop procedure bp_buscarLivros;
 
 
 
@@ -59,4 +59,36 @@ DELIMITER ;
 call pc_cadastrarFuncionario ('00100300405','Paulo','rua paraiso, 3425, jardim dos principes','(69)90000-0000', @msg_retorno);
 select @msg_retorno;
 
-drop procedure pc_cadastrarFuncionario;
+#drop procedure pc_cadastrarFuncionario;
+
+
+
+#3
+
+
+DELIMITER //
+create procedure pc_deleteLivro(in ps_numberLivro int,
+								out ps_msg varchar(45))
+begin
+	declare numberLivro int;
+    set ps_msg = 'ERRO!';
+
+	select count(*) into numberLivro from livros as l where l.numero=ps_numberLivro;
+        
+	if (numberLivro = 0 ) then 
+		set ps_msg='nenhum livros encontrado';
+	else
+		delete from livros as l where l.numero=ps_numberLivro ;
+		set ps_msg = 'livro excluido';
+	end if;
+   
+
+end //
+DELIMITER ;
+
+
+call pc_deleteLivro( 10277843,@mensagem);
+select @mensagem;
+
+
+drop procedure pc_deleteLivro;
